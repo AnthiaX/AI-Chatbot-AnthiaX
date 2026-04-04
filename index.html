@@ -195,6 +195,45 @@
       }
     }
 
+    /* 🔥 MOBILE OPTIMISATION (SAFE - DOES NOT AFFECT DESKTOP) */
+    @media (max-width: 768px) {
+
+      body {
+        height: auto;
+      }
+
+      #chatContainer {
+        margin: 0;
+        border-radius: 0;
+        max-width: 100%;
+      }
+
+      #chat {
+        padding: 20px 12px 10px 12px;
+      }
+
+      .message {
+        max-width: 85%;
+        font-size: 14px;
+      }
+
+      #inputArea {
+        padding: 12px;
+        position: sticky;
+        bottom: 0;
+      }
+
+      input {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      button {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+    }
+
   </style>
 </head>
 
