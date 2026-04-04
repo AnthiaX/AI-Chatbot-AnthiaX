@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <!-- 🔥 FIXED: moved into correct place -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
   <title>AnthiaX AI</title>
 
   <style>
@@ -47,11 +51,11 @@
 
       overflow: hidden;
 
-      /* 🔥 NEW: THIS is the missing piece */
-      min-height: calc(100vh - 80px);
+      /* 🔥 Fixed Height Logic */
+      min-height: 100dvh;
 
       /* 🔥 NEW: ensures proper full-height behaviour */
-      height: 50vh;
+      height: 100vh;
     }
 
     /* CHAT CONTAINER */
@@ -364,9 +368,9 @@
       aiDiv.className = 'message ai';
 
       aiDiv.innerHTML = data.message
-      .replace(/\n/g, "<br>")
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/### (.*?)(<br>|$)/g, "<strong>$1</strong><br>");
+        .replace(/\n/g, "<br>")
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .replace(/### (.*?)(<br>|$)/g, "<strong>$1</strong><br>");
 
       chat.appendChild(aiDiv);
 
@@ -388,6 +392,19 @@
 
       updateChatState();
     }
+
+    // 🔥 NEW: MOBILE KEYBOARD FIX (SAFE - DOES NOT BREAK DESKTOP)
+    function adjustForKeyboard() {
+      const chatContainer = document.getElementById('chatContainer');
+
+      if (window.innerWidth < 768) {
+        chatContainer.style.height = window.innerHeight + "px";
+      }
+    }
+
+    window.addEventListener('resize', adjustForKeyboard);
+    window.addEventListener('load', adjustForKeyboard);
+
   </script>
 
 </body>
