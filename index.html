@@ -216,14 +216,24 @@
     /* 🔥 MOBILE OPTIMISATION (SAFE - DOES NOT AFFECT DESKTOP) */
     @media (max-width: 768px) {
 
+      /* 🔥 NEW: remove pattern from body */
       body {
         height: auto;
+        background-image: none;
       }
 
+      /* 🔥 NEW: move dots into chat container */
       #chatContainer {
         margin: 0;
         border-radius: 0;
         max-width: 100%;
+
+        background-color: #f5f6f8;
+        background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+        background-size: 20px 20px;
+
+        box-shadow: none;
+        border: none;
       }
 
       #chat {
@@ -302,18 +312,15 @@
 
       if (!message) return;
 
-      // USER MESSAGE
       const userDiv = document.createElement('div');
       userDiv.className = 'message user';
       userDiv.innerText = message;
       chat.appendChild(userDiv);
 
-      // 🔥 NEW
       updateChatState();
 
       input.value = "";
 
-      // 🔥 ADDED: Typing indicator
       const typingDiv = document.createElement('div');
       typingDiv.className = 'message ai';
       typingDiv.id = 'typing';
@@ -329,7 +336,6 @@
       chat.appendChild(typingDiv);
       chat.scrollTop = chat.scrollHeight;
 
-      // API CALL
       const response = await fetch('https://anthiax-ai-api-frcfd6h0grd5bmae.uksouth-01.azurewebsites.net/api/anthiax-agent-api', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -338,10 +344,8 @@
 
       const data = await response.json();
 
-      // 🔥 ADDED: Remove typing indicator
       document.getElementById('typing')?.remove();
 
-      // AI MESSAGE
       const aiDiv = document.createElement('div');
       aiDiv.className = 'message ai';
 
@@ -352,21 +356,17 @@
 
       chat.appendChild(aiDiv);
 
-      // 🔥 NEW
       updateChatState();
 
-      // AUTO SCROLL
       chat.scrollTop = chat.scrollHeight;
     }
 
-    // 🔥 ADDED: Clear chat function with confirmation
     function clearChat() {
       const confirmed = confirm("Clear the conversation?");
       if (!confirmed) return;
 
       document.getElementById('chat').innerHTML = "";
 
-      // 🔥 NEW
       updateChatState();
     }
   </script>
