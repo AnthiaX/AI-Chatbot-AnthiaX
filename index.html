@@ -77,6 +77,12 @@
       flex: 1;
     }
 
+    /* 🔥 NEW: robust empty-state fix (JS controlled) */
+    #chat.empty::before {
+      content: "";
+      flex: 1;
+    }
+
     /* MESSAGE BUBBLES */
     .message {
       margin-bottom: 15px;
@@ -272,6 +278,20 @@
       });
     }
 
+    // 🔥 NEW: handle empty chat state (reliable version)
+    function updateChatState() {
+      const chat = document.getElementById('chat');
+
+      if (chat.children.length === 0) {
+        chat.classList.add('empty');
+      } else {
+        chat.classList.remove('empty');
+      }
+    }
+
+    // run on load
+    document.addEventListener("DOMContentLoaded", updateChatState);
+
     async function sendMessage() {
       const input = document.getElementById('userInput');
       const chat = document.getElementById('chat');
@@ -284,6 +304,9 @@
       userDiv.className = 'message user';
       userDiv.innerText = message;
       chat.appendChild(userDiv);
+
+      // 🔥 NEW
+      updateChatState();
 
       input.value = "";
 
@@ -326,6 +349,9 @@
 
       chat.appendChild(aiDiv);
 
+      // 🔥 NEW
+      updateChatState();
+
       // AUTO SCROLL
       chat.scrollTop = chat.scrollHeight;
     }
@@ -336,6 +362,9 @@
       if (!confirmed) return;
 
       document.getElementById('chat').innerHTML = "";
+
+      // 🔥 NEW
+      updateChatState();
     }
   </script>
 
