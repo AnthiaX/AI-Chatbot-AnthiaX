@@ -226,6 +226,9 @@
       input {
         font-size: 16px;
         padding: 12px;
+
+        /* 🔥 FIX: allow input to shrink properly */
+        min-width: 0;
       }
 
       button {
@@ -253,6 +256,13 @@
   </div>
 
   <script>
+    // 🔥 MOBILE PLACEHOLDER FIX
+    if (window.innerWidth < 768) {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById('userInput').placeholder = "Ask something...";
+      });
+    }
+
     async function sendMessage() {
       const input = document.getElementById('userInput');
       const chat = document.getElementById('chat');
