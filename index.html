@@ -71,8 +71,8 @@
       background: transparent;
     }
 
-    /* 🔥 NEW: bottom alignment spacer (safe alternative to justify-content) */
-    #chat::before {
+    /* 🔥 NEW: only push content down when chat is empty */
+    #chat:empty::before {
       content: "";
       flex: 1;
     }
