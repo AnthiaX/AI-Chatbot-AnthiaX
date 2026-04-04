@@ -317,7 +317,20 @@
     }
 
     // run on load
-    document.addEventListener("DOMContentLoaded", updateChatState);
+    document.addEventListener("DOMContentLoaded", () => {
+      updateChatState(); // ensures correct state on refresh
+
+      // 🔥 ENTER TO SEND (SHIFT+ENTER = NEW LINE)
+      const input = document.getElementById('userInput');
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) { // only send on Enter without Shift
+          e.preventDefault(); // prevent new line
+          sendMessage(); 
+          input.focus(); // keep focus on input after sending
+        }
+      });
+    });
 
     async function sendMessage() {
       const input = document.getElementById('userInput');
