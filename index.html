@@ -64,8 +64,17 @@
       display: flex;
       flex-direction: column;
 
+      /* 🔥 NEW: ensures chat starts from bottom without breaking scroll */
+      position: relative;
+
       /* 🔥 IMPORTANT: remove background conflict */
       background: transparent;
+    }
+
+    /* 🔥 NEW: bottom alignment spacer (safe alternative to justify-content) */
+    #chat::before {
+      content: "";
+      flex: 1;
     }
 
     /* MESSAGE BUBBLES */
