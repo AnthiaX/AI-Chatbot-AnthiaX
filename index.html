@@ -137,7 +137,7 @@
       gap: 10px;
     }
 
-    input {
+    #userInput {
       flex: 1;
       padding: 10px;
       border-radius: 6px;
@@ -152,12 +152,12 @@
     }
 
     /* 🔥 ADDED: focus state */
-    input:focus {
+    #userInput:focus {
       border-color: #b01ce6;
       box-shadow: 0 0 0 2px rgba(176, 28, 230, 0.15);
     }
 
-    input::placeholder {
+    #userInput::placeholder {
       color: #9ca3af;
     }
 
@@ -265,7 +265,7 @@
         z-index: 10;
       }
 
-      input {
+      #userInput {
         font-size: 16px;
         padding: 12px;
 
@@ -289,7 +289,7 @@
     <div id="chat"></div>
 
     <div id="inputArea">
-      <input id="userInput" placeholder="Ask AnthiaX something..." />
+      <textarea id="userInput" placeholder="Ask AnthiaX something..."></textarea>
       <button onclick="sendMessage()">Send</button>
 
       <!-- 🔥 ADDED: Clear button -->
@@ -318,16 +318,15 @@
 
     // run on load
     document.addEventListener("DOMContentLoaded", () => {
-      updateChatState(); // ensures correct state on refresh
+      updateChatState();
 
-      // 🔥 ENTER TO SEND (SHIFT+ENTER = NEW LINE)
       const input = document.getElementById('userInput');
 
       input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) { // only send on Enter without Shift
-          e.preventDefault(); // prevent new line
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
           sendMessage(); 
-          input.focus(); // keep focus on input after sending
+          input.focus();
         }
       });
     });
@@ -335,18 +334,17 @@
     async function sendMessage() {
       const input = document.getElementById('userInput');
       const chat = document.getElementById('chat');
-      const message = input.value;
-
+      const message = input.value.trim();
       if (!message) return;
 
       const userDiv = document.createElement('div');
-      userDiv.className = 'message user';
+      userDiv.className = 'message user'; 
       userDiv.innerText = message;
       chat.appendChild(userDiv);
 
       updateChatState();
 
-      input.value = "";
+      input.value = ""; 
 
       const typingDiv = document.createElement('div');
       typingDiv.className = 'message ai';
@@ -362,7 +360,6 @@
 
       chat.appendChild(typingDiv);
 
-      // 🔥 NEW: smart auto-scroll (ChatGPT style)
       let isNearBottom = chat.scrollHeight - chat.scrollTop - chat.clientHeight < 120;
       if (isNearBottom) {
         chat.scrollTop = chat.scrollHeight;
@@ -390,24 +387,20 @@
 
       updateChatState();
 
-      // 🔥 NEW: smart auto-scroll again
       isNearBottom = chat.scrollHeight - chat.scrollTop - chat.clientHeight < 120;
       if (isNearBottom) {
         chat.scrollTop = chat.scrollHeight;
       }
     }
 
-    // 🔥 ADDED: Clear chat function with confirmation
     function clearChat() {
       const confirmed = confirm("Clear the conversation?");
       if (!confirmed) return;
 
       document.getElementById('chat').innerHTML = "";
-
       updateChatState();
     }
 
-    // 🔥 NEW: MOBILE KEYBOARD FIX (SAFE - DOES NOT BREAK DESKTOP)
     function adjustForKeyboard() {
       const chatContainer = document.getElementById('chatContainer');
 
