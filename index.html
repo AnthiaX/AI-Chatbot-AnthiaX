@@ -364,10 +364,10 @@
 
       chat.appendChild(typingDiv);
 
-      let isNearBottom = chat.scrollHeight - chat.scrollTop - chat.clientHeight < 120;
-      if (isNearBottom) {
-        chat.scrollTop = chat.scrollHeight;
-      }
+      chat.scrollTo({
+        top: chat.scrollHeight,
+          behavior: "smooth"
+      });
 
       const response = await fetch('https://anthiax-ai-api-frcfd6h0grd5bmae.uksouth-01.azurewebsites.net/api/anthiax-agent-api', {
         method: 'POST',
@@ -391,10 +391,10 @@
 
       updateChatState();
 
-      isNearBottom = chat.scrollHeight - chat.scrollTop - chat.clientHeight < 120;
-      if (isNearBottom) {
-        chat.scrollTop = chat.scrollHeight;
-      }
+      chat.scrollTo({
+        top: chat.scrollHeight,
+          behavior: "smooth"
+      });
     }
 
     function clearChat() {
