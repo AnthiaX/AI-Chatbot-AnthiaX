@@ -364,10 +364,18 @@
 
       chat.appendChild(typingDiv);
 
-      chat.scrollTo({
-        top: chat.scrollHeight,
+      if (window.innerWidth < 768) {
+        // 📱 mobile
+        setTimeout(() => {
+          chat.scrollTop = chat.scrollHeight;
+        }, 50);
+      } else {
+        // 💻 desktop
+        chat.scrollTo({
+          top: chat.scrollHeight,
           behavior: "smooth"
-      });
+        });
+      }
 
       const response = await fetch('https://anthiax-ai-api-frcfd6h0grd5bmae.uksouth-01.azurewebsites.net/api/anthiax-agent-api', {
         method: 'POST',
@@ -391,10 +399,18 @@
 
       updateChatState();
 
-      chat.scrollTo({
-        top: chat.scrollHeight,
+      if (window.innerWidth < 768) {
+        // 📱 mobile
+        setTimeout(() => {
+          chat.scrollTop = chat.scrollHeight;
+        }, 50);
+      } else {
+        // 💻 desktop
+        chat.scrollTo({
+          top: chat.scrollHeight,
           behavior: "smooth"
-      });
+        });
+      }
     }
 
     function clearChat() {
